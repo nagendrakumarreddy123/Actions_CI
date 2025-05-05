@@ -1,0 +1,26 @@
+---
+
+    name : "dotnetcore"
+    on:
+      push:
+        branches:
+            - develop
+    jobs:
+        build:
+            name: build
+            runs-on:
+                - "ubuntu-24.04"
+            steps:
+                - uses: actions/checkout@v4      #clones the code from repo to the runner env for the steps to access it.
+                - uses: actions/setup-dotnet@v4  #setups the dotnet sdk version
+                  with:  
+                    dotnet-version: '9.0.100'
+                - name: restore
+                  run: dotnet restore src/Presenation/Nop.Web/Nop.Web.csproj
+                - name: build
+                  run: dotnet build src/Presenation/Nop.Web/Nop.Web.csproj --configuration debug
+                  
+
+
+                  
+        
